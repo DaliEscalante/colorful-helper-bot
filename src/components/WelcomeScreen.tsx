@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Sparkles, MessageSquare, Image, Mic } from "lucide-react";
+import { ImageIcon, Mic } from "lucide-react";
 
 interface WelcomeScreenProps {
   onExampleClick: (text: string) => void;
@@ -9,46 +9,50 @@ interface WelcomeScreenProps {
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onExampleClick }) => {
   return (
     <div className="h-full flex flex-col items-center justify-center text-gray-700">
-      <div className="max-w-md text-center p-8 glass rounded-3xl shadow-xl transform transition-all duration-500 hover:shadow-2xl">
-        <div className="mb-8 flex justify-center">
-          <div className="relative w-40 h-40 animate-float">
-            <div className="absolute inset-0 bg-gradient-to-r from-chat-bot/30 to-chat-user/30 rounded-full blur-xl animate-pulse-slow"></div>
+      <div className="max-w-2xl w-full text-center p-8 flex flex-col items-center">
+        {/* Circle Avatar with Image */}
+        <div className="mb-8 relative">
+          <div className="w-48 h-48 rounded-full bg-white shadow-xl overflow-hidden">
             <img 
-              src="/lovable-uploads/5ab9c16a-161a-41a8-a371-f92626c9448f.png" 
-              alt="ChatBot Mascot" 
-              className="w-full h-full object-contain relative z-10"
+              src="/lovable-uploads/5ab9c16a-161a-41a8-a371-f92626c9448f.png"
+              alt="Asistente AI" 
+              className="w-full h-full object-contain"
             />
-            <div className="absolute -top-2 -right-2 bg-gradient-to-r from-chat-bot to-chat-user text-white rounded-full p-2 shadow-lg animate-pulse z-20">
-              <Sparkles size={18} />
-            </div>
           </div>
+          <div className="absolute -inset-3 bg-white/10 rounded-full blur-xl z-[-1]"></div>
         </div>
         
-        <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-chat-bot via-purple-500 to-chat-user bg-clip-text text-transparent animate-pulse-slow">
-          ¡Bienvenido a tu Asistente Personal!
+        {/* Title and description */}
+        <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-purple-500 via-pink-500 to-purple-400 bg-clip-text text-transparent">
+          ¡Bienvenido al Chat!
         </h2>
         
-        <p className="mb-6 text-gray-600">
-          Puedes preguntarme lo que quieras, subir imágenes o incluso hablar por el micrófono.
-          ¿En qué puedo ayudarte hoy?
+        <p className="mb-10 text-gray-600 text-lg max-w-xl mx-auto">
+          Pregúntame lo que quieras y haré mi mejor esfuerzo
+          para ayudarte. Tus mensajes aparecerán aquí.
         </p>
         
-        <div className="space-y-4">
-          <div className="flex items-center justify-center gap-4 text-sm font-medium text-gray-600 mb-5">
-            <div className="flex items-center gap-1.5 glass px-3 py-1.5 rounded-full shadow-md">
-              <MessageSquare size={15} className="text-chat-bot" />
-              <span>Chat</span>
-            </div>
-            <div className="flex items-center gap-1.5 glass px-3 py-1.5 rounded-full shadow-md">
-              <Image size={15} className="text-chat-user" />
-              <span>Imágenes</span>
-            </div>
-            <div className="flex items-center gap-1.5 glass px-3 py-1.5 rounded-full shadow-md">
-              <Mic size={15} className="text-red-500" />
-              <span>Voz</span>
-            </div>
-          </div>
+        {/* Action buttons */}
+        <div className="flex gap-6 justify-center">
+          <button 
+            className="flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 border border-purple-200 hover:shadow-lg transition-all duration-300 text-purple-500"
+            onClick={() => document.getElementById('image-upload-button')?.click()}
+          >
+            <ImageIcon size={20} />
+            <span>Sube una imagen</span>
+          </button>
           
+          <button 
+            className="flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 border border-purple-200 hover:shadow-lg transition-all duration-300 text-purple-500"
+            onClick={() => document.getElementById('voice-button')?.click()}
+          >
+            <Mic size={20} />
+            <span>Habla conmigo</span>
+          </button>
+        </div>
+        
+        {/* Example queries */}
+        <div className="mt-12 grid gap-4 max-w-lg mx-auto w-full">
           {[
             "¿Puedes explicarme qué es la inteligencia artificial?",
             "¿Cuáles son los destinos turísticos más populares en 2024?",
@@ -57,7 +61,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onExampleClick }) => {
             <button 
               key={index}
               onClick={() => onExampleClick(text)}
-              className="w-full p-3.5 text-left rounded-xl hover:bg-white transition-all duration-300 border border-gray-100 shadow-sm hover:shadow-lg bg-white/80 text-gray-700 transform hover:scale-102"
+              className="w-full p-3.5 text-left rounded-xl hover:bg-white transition-all duration-300 border border-purple-100 shadow-sm hover:shadow-lg bg-white/80 text-gray-700 transform hover:scale-102"
             >
               "{text}"
             </button>

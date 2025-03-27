@@ -2,6 +2,7 @@
 import React from "react";
 import { MessageType } from "../context/ChatContext";
 import { User, Bot } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 interface ChatMessageProps {
   message: MessageType;
@@ -16,35 +17,44 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, isLatest }) => {
       className={`flex ${isUser ? "justify-end" : "justify-start"} mb-4 animate-slide-up`}
     >
       <div 
-        className={`flex max-w-[80%] ${isUser ? "flex-row-reverse" : "flex-row"} gap-3`}
+        className={`flex max-w-[80%] ${isUser ? "flex-row-reverse" : "flex-row"} gap-3 items-start`}
       >
-        <div 
+        <Avatar 
           className={`
-            flex-shrink-0 h-10 w-10 rounded-full flex items-center justify-center
+            flex-shrink-0 h-10 w-10 border-2
             ${isUser 
-              ? "message-gradient-user text-white" 
-              : "message-gradient-bot text-white"
+              ? "border-purple-200 bg-gradient-to-br from-purple-100 to-pink-100" 
+              : "border-pink-200 bg-gradient-to-br from-pink-100 to-purple-100"
             }
-            shadow-lg hover:shadow-xl transition-shadow duration-300
           `}
         >
           {isUser ? (
-            <User size={20} />
+            <AvatarFallback className="text-purple-500">
+              <User size={18} />
+            </AvatarFallback>
           ) : (
-            <Bot size={20} />
+            <>
+              <AvatarImage 
+                src="/lovable-uploads/5ab9c16a-161a-41a8-a371-f92626c9448f.png"
+                alt="AI Assistant"
+              />
+              <AvatarFallback className="text-pink-500">
+                <Bot size={18} />
+              </AvatarFallback>
+            </>
           )}
-        </div>
+        </Avatar>
         
         <div 
           className={`
-            p-4 rounded-2xl shadow-md
+            p-4 rounded-2xl shadow-sm
             ${isUser 
-              ? "bg-gradient-to-br from-chat-user-light to-chat-user-light/80 border border-chat-user/20 text-gray-800" 
-              : "bg-gradient-to-br from-chat-bot-light to-chat-bot-light/80 border border-chat-bot/20 text-gray-800"
+              ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white" 
+              : "bg-white border border-gray-100 text-gray-800"
             }
             ${isUser ? "rounded-tr-sm" : "rounded-tl-sm"}
             ${!message.content && isLatest ? "min-w-[60px] min-h-[40px]" : ""}
-            transition-all duration-300 hover:shadow-lg transform hover:scale-102
+            transition-all duration-300 hover:shadow-md
           `}
         >
           {message.content ? (
@@ -69,7 +79,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, isLatest }) => {
             <div className="typing-indicator font-light text-gray-500">Pensando</div>
           ) : null}
           
-          <div className="text-xs text-gray-500 mt-2 text-right">
+          <div className={`text-xs mt-2 text-right ${isUser ? "text-white/70" : "text-gray-500"}`}>
             {new Date(message.timestamp).toLocaleTimeString([], { 
               hour: '2-digit', 
               minute: '2-digit' 

@@ -1,6 +1,5 @@
-
 import React, { useState, useRef, useEffect } from "react";
-import { Send, ChevronLeft, ChevronRight, Settings, Sparkles } from "lucide-react";
+import { Send, ChevronLeft, ChevronRight, Settings, Trash2 } from "lucide-react";
 import { useChat } from "../context/ChatContext";
 import ChatMessage from "./ChatMessage";
 import VoiceInput from "./VoiceInput";
@@ -31,12 +30,10 @@ const ChatInterface: React.FC = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  // Auto-scroll to bottom when messages change
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [currentConversation?.messages]);
 
-  // Auto-resize textarea
   useEffect(() => {
     const textarea = inputRef.current;
     if (textarea) {
@@ -45,7 +42,6 @@ const ChatInterface: React.FC = () => {
     }
   }, [inputValue]);
 
-  // Responsive sidebar
   useEffect(() => {
     const handleResize = () => {
       setShowSidebar(window.innerWidth > 768);
@@ -55,7 +51,6 @@ const ChatInterface: React.FC = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -74,17 +69,14 @@ const ChatInterface: React.FC = () => {
     setIsListening(false);
   };
 
-  // Handle voice input
   const handleVoiceInput = (transcript: string) => {
     setInputValue(transcript);
   };
 
-  // Handle image upload
   const handleImagesUploaded = (imageUrls: string[]) => {
     setUploadedImages(imageUrls);
   };
 
-  // Save API key
   const handleSaveApiKey = (e: React.FormEvent) => {
     e.preventDefault();
     if (!apiKeyInput.trim()) {
@@ -97,7 +89,6 @@ const ChatInterface: React.FC = () => {
     toast.success("Clave de API guardada correctamente");
   };
 
-  // Handle example click from welcome screen
   const handleExampleClick = (text: string) => {
     setInputValue(text);
     setTimeout(() => {
@@ -105,20 +96,17 @@ const ChatInterface: React.FC = () => {
     }, 100);
   };
 
-  // Toggle sidebar
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
   };
 
   return (
-    <div className="flex h-screen bubble-pattern">
-      {/* API Key Modal */}
+    <div className="flex h-screen">
       {showApiKeyModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-          <div className="glass rounded-xl shadow-xl p-6 max-w-md w-full mx-4 animate-scale-in">
+          <div className="bg-white rounded-xl shadow-xl p-6 max-w-md w-full mx-4 animate-scale-in">
             <div className="mb-4 flex items-center gap-2">
-              <Sparkles className="text-chat-bot" size={20} />
-              <h2 className="text-xl font-semibold bg-gradient-to-r from-chat-bot to-chat-user bg-clip-text text-transparent">
+              <h2 className="text-xl font-semibold text-purple-600">
                 Configurar OpenAI API Key
               </h2>
             </div>
@@ -130,7 +118,7 @@ const ChatInterface: React.FC = () => {
                 href="https://platform.openai.com/api-keys"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-chat-bot underline"
+                className="text-purple-600 underline"
               >
                 platform.openai.com
               </a>
@@ -142,14 +130,14 @@ const ChatInterface: React.FC = () => {
                 value={apiKeyInput}
                 onChange={(e) => setApiKeyInput(e.target.value)}
                 placeholder="sk-..."
-                className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-chat-bot focus:border-transparent outline-none"
+                className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
                 autoFocus
               />
               
               <div className="flex justify-end">
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-gradient-to-r from-chat-bot to-chat-bot/90 text-white rounded-lg hover:opacity-90 transition-colors shadow-md"
+                  className="px-4 py-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg hover:opacity-90 transition-colors shadow-md"
                 >
                   Guardar
                 </button>
@@ -159,12 +147,11 @@ const ChatInterface: React.FC = () => {
         </div>
       )}
 
-      {/* Chat Sidebar */}
       <div 
         className={`
           ${showSidebar ? 'w-80' : 'w-0'} 
           transition-all duration-300 ease-in-out overflow-hidden
-          md:block
+          md:block bg-white border-r border-gray-100
           ${showSidebar ? 'md:w-80' : 'md:w-0'}
         `}
       >
@@ -179,10 +166,8 @@ const ChatInterface: React.FC = () => {
         )}
       </div>
 
-      {/* Main Chat Area */}
       <div className="flex-1 flex flex-col h-full relative">
-        {/* Header */}
-        <header className="flex justify-between items-center px-6 py-4 border-b border-gray-100 glass z-10">
+        <header className="flex justify-between items-center px-6 py-4 border-b border-gray-100 bg-white shadow-sm z-10">
           <div className="flex items-center">
             <button
               onClick={toggleSidebar}
@@ -193,28 +178,32 @@ const ChatInterface: React.FC = () => {
             </button>
             
             <div className="flex items-center gap-2">
-              <img 
-                src="/lovable-uploads/5ab9c16a-161a-41a8-a371-f92626c9448f.png" 
-                alt="ChatBot Mascot" 
-                className="w-7 h-7 object-contain"
-              />
-              <h1 className="text-xl font-semibold bg-gradient-to-r from-chat-bot to-chat-user bg-clip-text text-transparent">
-                {currentConversation?.title || "Nueva conversación"}
+              <h1 className="text-xl font-semibold text-purple-600">
+                Asistente AI
               </h1>
             </div>
           </div>
           
-          <button
-            onClick={() => setShowApiKeyModal(true)}
-            className="p-2 rounded-full hover:bg-gray-100 transition-colors"
-            aria-label="Settings"
-          >
-            <Settings size={20} className="text-gray-600" />
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setShowApiKeyModal(true)}
+              className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+              aria-label="Settings"
+            >
+              <Settings size={20} className="text-gray-600" />
+            </button>
+            
+            <button
+              onClick={() => currentConversation && deleteConversation(currentConversation.id)}
+              className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+              aria-label="Delete conversation"
+            >
+              <Trash2 size={20} className="text-gray-600" />
+            </button>
+          </div>
         </header>
 
-        {/* Messages Area */}
-        <div className="flex-1 overflow-y-auto p-4 pb-20">
+        <div className="flex-1 overflow-y-auto p-4 pb-24">
           {currentConversation?.messages && currentConversation.messages.length > 0 ? (
             currentConversation.messages.map((message, index) => (
               <ChatMessage
@@ -229,25 +218,28 @@ const ChatInterface: React.FC = () => {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input Area */}
-        <div className="absolute bottom-0 left-0 right-0 glass border-t border-gray-100 p-4">
+        <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4">
           <form onSubmit={handleSubmit} className="relative">
-            <div className="relative flex items-end rounded-2xl border-2 border-gray-200 bg-white shadow-sm focus-within:gradient-border">
-              <div className="absolute bottom-3 left-3 flex items-center space-x-2">
-                <VoiceInput 
-                  onTranscript={handleVoiceInput} 
-                  isListening={isListening}
-                  setIsListening={setIsListening}
-                />
-                <ImageUpload onImagesUploaded={handleImagesUploaded} />
+            <div className="relative flex items-center rounded-full border border-gray-200 bg-white shadow-sm">
+              <div className="flex items-center pl-4">
+                <div id="voice-button">
+                  <VoiceInput 
+                    onTranscript={handleVoiceInput} 
+                    isListening={isListening}
+                    setIsListening={setIsListening}
+                  />
+                </div>
+                <div id="image-upload-button" className="ml-2">
+                  <ImageUpload onImagesUploaded={handleImagesUploaded} />
+                </div>
               </div>
               
               <textarea
                 ref={inputRef}
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                placeholder="Escribe un mensaje..."
-                className="flex-1 max-h-32 p-4 pl-20 pr-16 bg-transparent resize-none focus:outline-none"
+                placeholder="Escribe tu mensaje..."
+                className="flex-1 py-3 px-4 bg-transparent resize-none focus:outline-none min-h-[48px] max-h-32"
                 rows={1}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && !e.shiftKey) {
@@ -257,21 +249,19 @@ const ChatInterface: React.FC = () => {
                 }}
               />
               
-              <div className="absolute bottom-2 right-2">
-                <button
-                  type="submit"
-                  disabled={isLoading || (inputValue.trim() === "" && uploadedImages.length === 0)}
-                  className={`
-                    p-2.5 rounded-full 
-                    ${(inputValue.trim() === "" && uploadedImages.length === 0) || isLoading
-                      ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                      : "bg-gradient-to-r from-chat-bot to-chat-user text-white shadow-sm hover:shadow-md transform hover:scale-105 transition-all duration-200"
-                    }
-                  `}
-                >
-                  <Send size={22} />
-                </button>
-              </div>
+              <button
+                type="submit"
+                disabled={isLoading || (inputValue.trim() === "" && uploadedImages.length === 0)}
+                className={`
+                  p-3 rounded-full mr-2
+                  ${(inputValue.trim() === "" && uploadedImages.length === 0) || isLoading
+                    ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                    : "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-sm hover:shadow-md transform hover:scale-105 transition-all duration-200"
+                  }
+                `}
+              >
+                <Send size={20} />
+              </button>
             </div>
             
             {uploadedImages.length > 0 && (
