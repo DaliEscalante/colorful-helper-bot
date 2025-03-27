@@ -5,7 +5,7 @@ import ChatInterface from "../components/ChatInterface";
 
 const Index: React.FC = () => {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
+    <main className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-blue-50">
       <ChatProvider>
         <ChatInterface />
       </ChatProvider>

@@ -1,11 +1,12 @@
 
 import React, { useState, useRef, useEffect } from "react";
-import { Send, ChevronLeft, ChevronRight, Settings } from "lucide-react";
+import { Send, ChevronLeft, ChevronRight, Settings, Sparkles } from "lucide-react";
 import { useChat } from "../context/ChatContext";
 import ChatMessage from "./ChatMessage";
 import VoiceInput from "./VoiceInput";
 import ImageUpload from "./ImageUpload";
 import ChatHistory from "./ChatHistory";
+import WelcomeScreen from "./WelcomeScreen";
 import { toast } from "sonner";
 import { getApiKey, setApiKey } from "../utils/openai";
 
@@ -96,18 +97,32 @@ const ChatInterface: React.FC = () => {
     toast.success("Clave de API guardada correctamente");
   };
 
+  // Handle example click from welcome screen
+  const handleExampleClick = (text: string) => {
+    setInputValue(text);
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 100);
+  };
+
   // Toggle sidebar
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
   };
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex h-screen bubble-pattern">
       {/* API Key Modal */}
       {showApiKeyModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-          <div className="bg-white rounded-xl shadow-xl p-6 max-w-md w-full mx-4 animate-scale-in">
-            <h2 className="text-xl font-semibold mb-4">Configurar OpenAI API Key</h2>
+          <div className="glass rounded-xl shadow-xl p-6 max-w-md w-full mx-4 animate-scale-in">
+            <div className="mb-4 flex items-center gap-2">
+              <Sparkles className="text-chat-bot" size={20} />
+              <h2 className="text-xl font-semibold bg-gradient-to-r from-chat-bot to-chat-user bg-clip-text text-transparent">
+                Configurar OpenAI API Key
+              </h2>
+            </div>
+            
             <p className="text-gray-600 mb-4">
               Para usar este chatbot, necesitas configurar tu clave de API de OpenAI.
               Puedes obtener una en{" "}
@@ -134,7 +149,7 @@ const ChatInterface: React.FC = () => {
               <div className="flex justify-end">
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-chat-bot text-white rounded-lg hover:bg-chat-bot/90 transition-colors"
+                  className="px-4 py-2 bg-gradient-to-r from-chat-bot to-chat-bot/90 text-white rounded-lg hover:opacity-90 transition-colors shadow-md"
                 >
                   Guardar
                 </button>
@@ -167,7 +182,7 @@ const ChatInterface: React.FC = () => {
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col h-full relative">
         {/* Header */}
-        <header className="flex justify-between items-center px-6 py-4 border-b border-gray-100 bg-white">
+        <header className="flex justify-between items-center px-6 py-4 border-b border-gray-100 glass z-10">
           <div className="flex items-center">
             <button
               onClick={toggleSidebar}
@@ -177,9 +192,16 @@ const ChatInterface: React.FC = () => {
               {showSidebar ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
             </button>
             
-            <h1 className="text-xl font-semibold text-gray-800">
-              {currentConversation?.title || "Nueva conversación"}
-            </h1>
+            <div className="flex items-center gap-2">
+              <img 
+                src="/lovable-uploads/5ab9c16a-161a-41a8-a371-f92626c9448f.png" 
+                alt="ChatBot Mascot" 
+                className="w-7 h-7 object-contain"
+              />
+              <h1 className="text-xl font-semibold bg-gradient-to-r from-chat-bot to-chat-user bg-clip-text text-transparent">
+                {currentConversation?.title || "Nueva conversación"}
+              </h1>
+            </div>
           </div>
           
           <button
@@ -187,7 +209,7 @@ const ChatInterface: React.FC = () => {
             className="p-2 rounded-full hover:bg-gray-100 transition-colors"
             aria-label="Settings"
           >
-            <Settings size={20} />
+            <Settings size={20} className="text-gray-600" />
           </button>
         </header>
 
@@ -202,36 +224,15 @@ const ChatInterface: React.FC = () => {
               />
             ))
           ) : (
-            <div className="h-full flex flex-col items-center justify-center text-gray-500">
-              <div className="max-w-md text-center p-8">
-                <h2 className="text-2xl font-semibold mb-4 text-gray-700">
-                  ¡Bienvenido al Chatbot!
-                </h2>
-                <p className="mb-6">
-                  Puedes preguntarme lo que quieras, subir imágenes o incluso hablar por el micrófono.
-                  ¿En qué puedo ayudarte hoy?
-                </p>
-                <div className="space-y-3 text-left">
-                  <p className="p-3 bg-gray-100 rounded-lg hover:bg-gray-200 cursor-pointer transition-colors">
-                    "¿Puedes explicarme qué es la inteligencia artificial?"
-                  </p>
-                  <p className="p-3 bg-gray-100 rounded-lg hover:bg-gray-200 cursor-pointer transition-colors">
-                    "¿Cuáles son los destinos turísticos más populares en 2024?"
-                  </p>
-                  <p className="p-3 bg-gray-100 rounded-lg hover:bg-gray-200 cursor-pointer transition-colors">
-                    "Dame algunas ideas para una cena rápida y saludable"
-                  </p>
-                </div>
-              </div>
-            </div>
+            <WelcomeScreen onExampleClick={handleExampleClick} />
           )}
           <div ref={messagesEndRef} />
         </div>
 
         {/* Input Area */}
-        <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4">
+        <div className="absolute bottom-0 left-0 right-0 glass border-t border-gray-100 p-4">
           <form onSubmit={handleSubmit} className="relative">
-            <div className="relative flex items-end rounded-2xl border border-gray-200 bg-white shadow-sm focus-within:ring-2 focus-within:ring-chat-bot focus-within:border-transparent">
+            <div className="relative flex items-end rounded-2xl border-2 border-gray-200 bg-white shadow-sm focus-within:gradient-border">
               <textarea
                 ref={inputRef}
                 value={inputValue}
@@ -261,7 +262,7 @@ const ChatInterface: React.FC = () => {
                     p-2.5 rounded-full 
                     ${(inputValue.trim() === "" && uploadedImages.length === 0) || isLoading
                       ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                      : "bg-chat-bot text-white shadow-sm hover:bg-chat-bot/90 hover:shadow-md"
+                      : "bg-gradient-to-r from-chat-bot to-chat-user text-white shadow-sm hover:shadow-md"
                     }
                     transition-all duration-200 ease-in-out
                   `}

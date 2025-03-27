@@ -21,7 +21,11 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, isLatest }) => {
         <div 
           className={`
             flex-shrink-0 h-10 w-10 rounded-full flex items-center justify-center
-            ${isUser ? "bg-chat-user text-white" : "bg-chat-bot text-white"}
+            ${isUser 
+              ? "message-gradient-user text-white" 
+              : "message-gradient-bot text-white"
+            }
+            shadow-md
           `}
         >
           {isUser ? (
@@ -33,12 +37,14 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, isLatest }) => {
         
         <div 
           className={`
-            p-4 rounded-2xl shadow-sm
+            p-4 rounded-2xl shadow-md
             ${isUser 
               ? "bg-chat-user-light border border-chat-user/20 text-gray-800" 
               : "bg-chat-bot-light border border-chat-bot/20 text-gray-800"
             }
+            ${isUser ? "rounded-tr-sm" : "rounded-tl-sm"}
             ${!message.content && isLatest ? "min-w-[60px] min-h-[40px]" : ""}
+            transition-all duration-200 hover:shadow-lg
           `}
         >
           {message.content ? (

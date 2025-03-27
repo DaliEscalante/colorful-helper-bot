@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   :root {
@@ -16,7 +16,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
     
-    --primary: 248 90% 66%;
+    --primary: 263 90% 66%;
     --primary-foreground: 0 0% 98%;
     
     --secondary: 240 4.8% 95.9%;
@@ -25,7 +25,7 @@
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
     
-    --accent: 240 4.8% 95.9%;
+    --accent: 263 90% 95%;
     --accent-foreground: 240 5.9% 10%;
     
     --destructive: 0 84.2% 60.2%;
@@ -38,9 +38,9 @@
     --radius: 1rem;
 
     --chat-user: 196 90% 70%;
-    --chat-bot: 248 90% 66%;
+    --chat-bot: 263 90% 66%;
     --chat-user-light: 196 90% 95%;
-    --chat-bot-light: 248 90% 97%;
+    --chat-bot-light: 263 90% 97%;
   }
 
   * {
@@ -48,12 +48,12 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-gradient-to-br from-violet-50 to-blue-50 text-foreground font-sans antialiased;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
   }
 
   .glass {
-    @apply backdrop-blur-lg bg-white/60 border border-white/20 shadow-sm;
+    @apply backdrop-blur-lg bg-white/70 border border-white/30 shadow-sm;
   }
   
   .glass-dark {
@@ -63,6 +63,25 @@
   .neo-shadow {
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.03), 
                 -5px -5px 10px rgba(255, 255, 255, 0.9);
+  }
+
+  .gradient-border {
+    position: relative;
+  }
+
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(to right, hsl(var(--chat-user)), hsl(var(--chat-bot)));
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
   }
 }
 
@@ -130,4 +149,22 @@
   66% {
     content: "...";
   }
+}
+
+.bubble-pattern {
+  background-color: #ffffff;
+  background-image: radial-gradient(circle at center, rgba(var(--chat-bot-rgb), 0.06) 0, rgba(var(--chat-bot-rgb), 0.06) 1px, transparent 1px, transparent 100%);
+  background-size: 18px 18px;
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, hsl(var(--chat-bot)/50%) 0%, hsl(var(--chat-user)/30%) 100%);
+}
+
+.message-gradient-user {
+  background: linear-gradient(135deg, hsl(var(--chat-user)/90%) 0%, hsl(var(--chat-user)/70%) 100%);
+}
+
+.message-gradient-bot {
+  background: linear-gradient(135deg, hsl(var(--chat-bot)/90%) 0%, hsl(var(--chat-bot)/70%) 100%);
 }
