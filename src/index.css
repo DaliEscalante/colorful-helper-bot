@@ -41,6 +41,9 @@
     --chat-bot: 263 90% 66%;
     --chat-user-light: 196 90% 95%;
     --chat-bot-light: 263 90% 97%;
+    
+    --chat-user-rgb: 73, 197, 236;
+    --chat-bot-rgb: 171, 124, 224;
   }
 
   * {
@@ -82,6 +85,10 @@
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
+  }
+  
+  .transform.hover\:scale-102:hover {
+    transform: scale(1.02);
   }
 }
 

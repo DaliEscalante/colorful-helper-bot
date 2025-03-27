@@ -233,12 +233,21 @@ const ChatInterface: React.FC = () => {
         <div className="absolute bottom-0 left-0 right-0 glass border-t border-gray-100 p-4">
           <form onSubmit={handleSubmit} className="relative">
             <div className="relative flex items-end rounded-2xl border-2 border-gray-200 bg-white shadow-sm focus-within:gradient-border">
+              <div className="absolute bottom-3 left-3 flex items-center space-x-2">
+                <VoiceInput 
+                  onTranscript={handleVoiceInput} 
+                  isListening={isListening}
+                  setIsListening={setIsListening}
+                />
+                <ImageUpload onImagesUploaded={handleImagesUploaded} />
+              </div>
+              
               <textarea
                 ref={inputRef}
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder="Escribe un mensaje..."
-                className="flex-1 max-h-32 p-4 pr-20 bg-transparent resize-none focus:outline-none"
+                className="flex-1 max-h-32 p-4 pl-20 pr-16 bg-transparent resize-none focus:outline-none"
                 rows={1}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && !e.shiftKey) {
@@ -248,13 +257,7 @@ const ChatInterface: React.FC = () => {
                 }}
               />
               
-              <div className="absolute bottom-2 right-2 flex items-center space-x-2 p-2">
-                <ImageUpload onImagesUploaded={handleImagesUploaded} />
-                <VoiceInput 
-                  onTranscript={handleVoiceInput} 
-                  isListening={isListening}
-                  setIsListening={setIsListening}
-                />
+              <div className="absolute bottom-2 right-2">
                 <button
                   type="submit"
                   disabled={isLoading || (inputValue.trim() === "" && uploadedImages.length === 0)}
@@ -262,9 +265,8 @@ const ChatInterface: React.FC = () => {
                     p-2.5 rounded-full 
                     ${(inputValue.trim() === "" && uploadedImages.length === 0) || isLoading
                       ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                      : "bg-gradient-to-r from-chat-bot to-chat-user text-white shadow-sm hover:shadow-md"
+                      : "bg-gradient-to-r from-chat-bot to-chat-user text-white shadow-sm hover:shadow-md transform hover:scale-105 transition-all duration-200"
                     }
-                    transition-all duration-200 ease-in-out
                   `}
                 >
                   <Send size={22} />

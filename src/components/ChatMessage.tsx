@@ -25,7 +25,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, isLatest }) => {
               ? "message-gradient-user text-white" 
               : "message-gradient-bot text-white"
             }
-            shadow-md
+            shadow-lg hover:shadow-xl transition-shadow duration-300
           `}
         >
           {isUser ? (
@@ -39,12 +39,12 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, isLatest }) => {
           className={`
             p-4 rounded-2xl shadow-md
             ${isUser 
-              ? "bg-chat-user-light border border-chat-user/20 text-gray-800" 
-              : "bg-chat-bot-light border border-chat-bot/20 text-gray-800"
+              ? "bg-gradient-to-br from-chat-user-light to-chat-user-light/80 border border-chat-user/20 text-gray-800" 
+              : "bg-gradient-to-br from-chat-bot-light to-chat-bot-light/80 border border-chat-bot/20 text-gray-800"
             }
             ${isUser ? "rounded-tr-sm" : "rounded-tl-sm"}
             ${!message.content && isLatest ? "min-w-[60px] min-h-[40px]" : ""}
-            transition-all duration-200 hover:shadow-lg
+            transition-all duration-300 hover:shadow-lg transform hover:scale-102
           `}
         >
           {message.content ? (
@@ -59,7 +59,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, isLatest }) => {
                       key={index} 
                       src={url} 
                       alt={`Attachment ${index + 1}`} 
-                      className="max-w-full rounded-lg max-h-60 object-contain"
+                      className="max-w-full rounded-lg max-h-60 object-contain border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300"
                     />
                   ))}
                 </div>
