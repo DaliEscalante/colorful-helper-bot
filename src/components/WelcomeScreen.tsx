@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import { ImageIcon, Mic, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 interface WelcomeScreenProps {
   onExampleClick: (text: string) => void;
@@ -54,27 +54,8 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onExampleClick }) => {
           para ayudarte. Tus mensajes aparecerán aquí.
         </p>
         
-        {/* Action buttons with enhanced styling */}
-        <div className={`flex flex-wrap gap-6 justify-center transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <button 
-            className="flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-purple-400/90 to-pink-400/90 text-white hover:shadow-lg hover:shadow-purple-200 transition-all duration-300 transform hover:scale-105"
-            onClick={() => document.getElementById('image-upload-button')?.click()}
-          >
-            <ImageIcon size={20} className="animate-pulse-slow" />
-            <span>Sube una imagen</span>
-          </button>
-          
-          <button 
-            className="flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-blue-400/90 to-teal-400/90 text-white hover:shadow-lg hover:shadow-blue-200 transition-all duration-300 transform hover:scale-105"
-            onClick={() => document.getElementById('voice-button')?.click()}
-          >
-            <Mic size={20} className="animate-pulse-slow" />
-            <span>Habla conmigo</span>
-          </button>
-        </div>
-        
         {/* Example queries with enhanced styling */}
-        <div className={`mt-12 grid gap-4 max-w-lg mx-auto w-full transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`mt-6 grid gap-4 max-w-lg mx-auto w-full transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           {[
             "¿Puedes explicarme qué es la inteligencia artificial?",
             "¿Cuáles son los destinos turísticos más populares en 2024?",

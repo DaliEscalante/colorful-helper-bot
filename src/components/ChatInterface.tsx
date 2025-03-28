@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from "react";
 import { Send, ChevronLeft, ChevronRight, Settings, Trash2 } from "lucide-react";
 import { useChat } from "../context/ChatContext";
@@ -99,6 +98,16 @@ const ChatInterface: React.FC = () => {
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
+  };
+
+  const getFriendlyPlaceholder = () => {
+    const placeholders = [
+      "¿Tienes una duda? Escríbela aquí...",
+      "Estoy listo para ayudarte...",
+      "¿En qué puedo asistirte hoy?",
+      "Escribe tu pregunta aquí..."
+    ];
+    return placeholders[Math.floor(Math.random() * placeholders.length)];
   };
 
   return (
@@ -204,7 +213,6 @@ const ChatInterface: React.FC = () => {
           </div>
         </header>
 
-        {/* Messages container with improved overflow handling */}
         <div className="flex-1 overflow-y-auto p-4 pb-24 max-h-[calc(100vh-140px)]">
           {currentConversation?.messages && currentConversation.messages.length > 0 ? (
             currentConversation.messages.map((message, index) => (
@@ -215,7 +223,7 @@ const ChatInterface: React.FC = () => {
               />
             ))
           ) : (
-            <div className="h-full overflow-auto"> {/* Wrapper for WelcomeScreen with overflow */}
+            <div className="h-full overflow-auto">
               <WelcomeScreen onExampleClick={handleExampleClick} />
             </div>
           )}
@@ -242,7 +250,7 @@ const ChatInterface: React.FC = () => {
                 ref={inputRef}
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                placeholder="Escribe tu mensaje..."
+                placeholder={getFriendlyPlaceholder()}
                 className="flex-1 py-3 px-4 bg-transparent resize-none focus:outline-none min-h-[48px] max-h-32"
                 rows={1}
                 onKeyDown={(e) => {

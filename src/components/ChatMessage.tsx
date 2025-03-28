@@ -14,7 +14,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, isLatest }) => {
   
   return (
     <div 
-      className={`flex ${isUser ? "justify-end" : "justify-start"} mb-4 animate-slide-up`}
+      className={`flex ${isUser ? "justify-end" : "justify-start"} mb-4 animate-in`}
     >
       <div 
         className={`flex max-w-[80%] ${isUser ? "flex-row-reverse" : "flex-row"} gap-3 items-start`}
