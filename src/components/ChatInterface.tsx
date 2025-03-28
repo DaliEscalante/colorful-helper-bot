@@ -6,6 +6,7 @@ import VoiceInput from "./VoiceInput";
 import ImageUpload from "./ImageUpload";
 import ChatHistory from "./ChatHistory";
 import WelcomeScreen from "./WelcomeScreen";
+import ThemeToggle from "./ThemeToggle";
 import { toast } from "sonner";
 import { getApiKey, setApiKey } from "../utils/openai";
 
@@ -114,21 +115,21 @@ const ChatInterface: React.FC = () => {
     <div className="flex h-screen">
       {showApiKeyModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-          <div className="bg-white rounded-xl shadow-xl p-6 max-w-md w-full mx-4 animate-scale-in">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-6 max-w-md w-full mx-4 animate-scale-in">
             <div className="mb-4 flex items-center gap-2">
-              <h2 className="text-xl font-semibold text-purple-600">
+              <h2 className="text-xl font-semibold text-purple-600 dark:text-purple-400">
                 Configurar OpenAI API Key
               </h2>
             </div>
             
-            <p className="text-gray-600 mb-4">
+            <p className="text-gray-600 dark:text-gray-300 mb-4">
               Para usar este chatbot, necesitas configurar tu clave de API de OpenAI.
               Puedes obtener una en{" "}
               <a
                 href="https://platform.openai.com/api-keys"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-purple-600 underline"
+                className="text-purple-600 dark:text-purple-400 underline"
               >
                 platform.openai.com
               </a>
@@ -140,7 +141,7 @@ const ChatInterface: React.FC = () => {
                 value={apiKeyInput}
                 onChange={(e) => setApiKeyInput(e.target.value)}
                 placeholder="sk-..."
-                className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
+                className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg mb-4 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none bg-white dark:bg-gray-700 dark:text-gray-200"
                 autoFocus
               />
               
@@ -161,7 +162,7 @@ const ChatInterface: React.FC = () => {
         className={`
           ${showSidebar ? 'w-80' : 'w-0'} 
           transition-all duration-300 ease-in-out overflow-hidden
-          md:block bg-white border-r border-gray-100
+          md:block bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-800
           ${showSidebar ? 'md:w-80' : 'md:w-0'}
         `}
       >
@@ -177,43 +178,45 @@ const ChatInterface: React.FC = () => {
       </div>
 
       <div className="flex-1 flex flex-col h-full relative">
-        <header className="flex justify-between items-center px-6 py-4 border-b border-gray-100 bg-white shadow-sm z-10">
+        <header className="flex justify-between items-center px-6 py-4 border-b border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm z-10">
           <div className="flex items-center">
             <button
               onClick={toggleSidebar}
-              className="mr-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
+              className="mr-4 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               aria-label="Toggle sidebar"
             >
               {showSidebar ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
             </button>
             
             <div className="flex items-center gap-2">
-              <h1 className="text-xl font-semibold text-purple-600">
+              <h1 className="text-xl font-semibold text-purple-600 dark:text-purple-400">
                 Asistente AI
               </h1>
             </div>
           </div>
           
           <div className="flex items-center gap-2">
+            <ThemeToggle />
+            
             <button
               onClick={() => setShowApiKeyModal(true)}
-              className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               aria-label="Settings"
             >
-              <Settings size={20} className="text-gray-600" />
+              <Settings size={20} className="text-gray-600 dark:text-gray-400" />
             </button>
             
             <button
               onClick={() => currentConversation && deleteConversation(currentConversation.id)}
-              className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               aria-label="Delete conversation"
             >
-              <Trash2 size={20} className="text-gray-600" />
+              <Trash2 size={20} className="text-gray-600 dark:text-gray-400" />
             </button>
           </div>
         </header>
 
-        <div className="flex-1 overflow-y-auto p-4 pb-24 max-h-[calc(100vh-140px)]">
+        <div className="flex-1 overflow-y-auto p-4 pb-24 max-h-[calc(100vh-140px)] dark:bg-gray-900">
           {currentConversation?.messages && currentConversation.messages.length > 0 ? (
             currentConversation.messages.map((message, index) => (
               <ChatMessage
@@ -230,9 +233,9 @@ const ChatInterface: React.FC = () => {
           <div ref={messagesEndRef} />
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4">
+        <div className="absolute bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 p-4">
           <form onSubmit={handleSubmit} className="relative">
-            <div className="relative flex items-center rounded-full border border-gray-200 bg-white shadow-sm">
+            <div className="relative flex items-center rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm">
               <div className="flex items-center pl-4">
                 <div id="voice-button">
                   <VoiceInput 
@@ -251,7 +254,7 @@ const ChatInterface: React.FC = () => {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder={getFriendlyPlaceholder()}
-                className="flex-1 py-3 px-4 bg-transparent resize-none focus:outline-none min-h-[48px] max-h-32"
+                className="flex-1 py-3 px-4 bg-transparent dark:text-gray-200 resize-none focus:outline-none min-h-[48px] max-h-32"
                 rows={1}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && !e.shiftKey) {
@@ -267,7 +270,7 @@ const ChatInterface: React.FC = () => {
                 className={`
                   p-3 rounded-full mr-2
                   ${(inputValue.trim() === "" && uploadedImages.length === 0) || isLoading
-                    ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                    ? "bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed"
                     : "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-sm hover:shadow-md transform hover:scale-105 transition-all duration-200"
                   }
                 `}
@@ -283,7 +286,7 @@ const ChatInterface: React.FC = () => {
                     <img
                       src={url}
                       alt={`Uploaded ${index}`}
-                      className="h-full w-full object-cover rounded-md border border-gray-200"
+                      className="h-full w-full object-cover rounded-md border border-gray-200 dark:border-gray-700"
                     />
                   </div>
                 ))}

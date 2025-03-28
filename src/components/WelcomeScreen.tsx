@@ -15,43 +15,43 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onExampleClick }) => {
   }, []);
 
   return (
-    <div className="h-full flex flex-col items-center justify-start py-8 text-gray-700 overflow-auto">
+    <div className="h-full flex flex-col items-center justify-start py-8 text-gray-700 dark:text-gray-200 overflow-auto">
       <div className="max-w-2xl w-full text-center p-8 flex flex-col items-center">
         {/* Circle Avatar with Image - Enhanced with animation and effects */}
         <div className={`mb-8 relative transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="w-48 h-48 rounded-full bg-white shadow-xl overflow-visible group relative">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-300/30 to-pink-300/30 animate-pulse-slow group-hover:from-purple-300/50 group-hover:to-pink-300/50 transition-all duration-300"></div>
+          <div className="w-48 h-48 rounded-full bg-white dark:bg-gray-800 shadow-xl overflow-visible group relative">
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-300/30 to-pink-300/30 dark:from-purple-500/30 dark:to-pink-500/30 animate-pulse-slow group-hover:from-purple-300/50 group-hover:to-pink-300/50 dark:group-hover:from-purple-500/50 dark:group-hover:to-pink-500/50 transition-all duration-300"></div>
             <img 
               src="/lovable-uploads/5ab9c16a-161a-41a8-a371-f92626c9448f.png"
               alt="Asistente AI" 
               className="w-full h-full object-contain animate-float"
             />
           </div>
-          <div className="absolute -inset-3 bg-white/10 rounded-full blur-xl z-[-1] animate-pulse-slow"></div>
+          <div className="absolute -inset-3 bg-white/10 dark:bg-white/5 rounded-full blur-xl z-[-1] animate-pulse-slow"></div>
           
           {/* Decorative elements */}
-          <div className="absolute -right-4 -top-2 text-purple-500/80 animate-spin-slow">
+          <div className="absolute -right-4 -top-2 text-purple-500/80 dark:text-purple-400/80 animate-spin-slow">
             <Sparkles size={28} />
           </div>
-          <div className="absolute -left-6 bottom-6 text-pink-400/80 animate-pulse-slow">
+          <div className="absolute -left-6 bottom-6 text-pink-400/80 dark:text-pink-300/80 animate-pulse-slow">
             <Sparkles size={20} />
           </div>
         </div>
         
         {/* Title and description with animations */}
         <h2 
-          className={`text-4xl font-bold mb-6 bg-gradient-to-r from-purple-500 via-pink-500 to-purple-400 bg-clip-text text-transparent transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+          className={`text-4xl font-bold mb-6 bg-gradient-to-r from-purple-500 via-pink-500 to-purple-400 dark:from-purple-400 dark:via-pink-400 dark:to-purple-300 bg-clip-text text-transparent transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
           style={{ fontFamily: "'Poppins', sans-serif", letterSpacing: '-0.02em' }}
         >
-          ¡Bienvenido al Chat!
+          ¡Hola! ¿En qué puedo ayudarte hoy?
         </h2>
         
         <p 
-          className={`mb-10 text-gray-600 text-lg max-w-xl mx-auto transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+          className={`mb-10 text-gray-600 dark:text-gray-300 text-lg max-w-xl mx-auto transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
-          Pregúntame lo que quieras y haré mi mejor esfuerzo
-          para ayudarte. Tus mensajes aparecerán aquí.
+          Estoy aquí para responder tus preguntas y asistirte en lo que necesites.
+          Solo escribe tu mensaje abajo y conversemos.
         </p>
         
         {/* Example queries with enhanced styling */}
@@ -64,17 +64,17 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onExampleClick }) => {
             <button 
               key={index}
               onClick={() => onExampleClick(text)}
-              className="w-full p-3.5 text-left rounded-xl hover:bg-white transition-all duration-300 border border-purple-100/50 shadow-sm hover:shadow-md bg-white/70 backdrop-blur-sm text-gray-700 transform hover:scale-102 group"
+              className="w-full p-3.5 text-left rounded-xl hover:bg-white dark:hover:bg-gray-800 transition-all duration-300 border border-purple-100/50 dark:border-purple-800/30 shadow-sm hover:shadow-md bg-white/70 dark:bg-gray-800/50 backdrop-blur-sm text-gray-700 dark:text-gray-200 transform hover:scale-102 group"
               style={{ 
                 transitionDelay: `${(index + 1) * 100}ms`,
                 animationDelay: `${(index + 1) * 100}ms` 
               }}
             >
               <span className="flex items-center gap-2">
-                <span className="inline-block w-6 h-6 rounded-full bg-gradient-to-r from-purple-400/80 to-pink-400/80 flex items-center justify-center text-white text-xs">
+                <span className="inline-block w-6 h-6 rounded-full bg-gradient-to-r from-purple-400/80 to-pink-400/80 dark:from-purple-500/80 dark:to-pink-500/80 flex items-center justify-center text-white text-xs">
                   {index + 1}
                 </span>
-                <span className="group-hover:text-purple-600 transition-colors duration-200">"{text}"</span>
+                <span className="group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-200">"{text}"</span>
               </span>
             </button>
           ))}

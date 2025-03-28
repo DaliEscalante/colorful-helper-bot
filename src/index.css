@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -46,26 +45,69 @@
     --chat-bot-rgb: 171, 124, 224;
   }
 
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    
+    --primary: 263 70% 70%;
+    --primary-foreground: 0 0% 98%;
+    
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+
+    --chat-user: 196 70% 60%;
+    --chat-bot: 263 70% 60%;
+    --chat-user-light: 196 30% 25%;
+    --chat-bot-light: 263 30% 25%;
+    
+    --chat-user-rgb: 43, 147, 186;
+    --chat-bot-rgb: 141, 94, 194;
+  }
+
   * {
     @apply border-border;
   }
 
   body {
-    @apply bg-gradient-to-br from-violet-50 to-blue-50 text-foreground font-sans antialiased;
+    @apply bg-gradient-to-br from-violet-50 to-blue-50 dark:from-gray-900 dark:to-gray-950 text-foreground font-sans antialiased;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
   }
 
   .glass {
-    @apply backdrop-blur-lg bg-white/70 border border-white/30 shadow-sm;
+    @apply backdrop-blur-lg bg-white/70 border border-white/30 shadow-sm dark:bg-black/30 dark:border-white/10;
   }
   
   .glass-dark {
-    @apply backdrop-blur-lg bg-black/5 border border-black/10 shadow-sm;
+    @apply backdrop-blur-lg bg-black/5 border border-black/10 shadow-sm dark:bg-white/5 dark:border-white/10;
   }
   
   .neo-shadow {
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.03), 
                 -5px -5px 10px rgba(255, 255, 255, 0.9);
+  }
+
+  .dark .neo-shadow {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), 
+                -5px -5px 10px rgba(255, 255, 255, 0.05);
   }
 
   .gradient-border {
@@ -188,6 +230,11 @@
   background-color: #ffffff;
   background-image: radial-gradient(circle at center, rgba(var(--chat-bot-rgb), 0.06) 0, rgba(var(--chat-bot-rgb), 0.06) 1px, transparent 1px, transparent 100%);
   background-size: 18px 18px;
+}
+
+.dark .bubble-pattern {
+  background-color: #1a1a1a;
+  background-image: radial-gradient(circle at center, rgba(var(--chat-bot-rgb), 0.15) 0, rgba(var(--chat-bot-rgb), 0.15) 1px, transparent 1px, transparent 100%);
 }
 
 .hero-gradient {
