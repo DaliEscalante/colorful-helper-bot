@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from "react";
 import { Send, ChevronLeft, ChevronRight, Settings, Trash2 } from "lucide-react";
 import { useChat } from "../context/ChatContext";
@@ -203,7 +204,8 @@ const ChatInterface: React.FC = () => {
           </div>
         </header>
 
-        <div className="flex-1 overflow-y-auto p-4 pb-24">
+        {/* This is the main change: making sure the messages container has proper overflow settings */}
+        <div className="flex-1 overflow-y-auto p-4 pb-24 max-h-[calc(100vh-140px)]">
           {currentConversation?.messages && currentConversation.messages.length > 0 ? (
             currentConversation.messages.map((message, index) => (
               <ChatMessage
