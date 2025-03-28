@@ -204,7 +204,7 @@ const ChatInterface: React.FC = () => {
           </div>
         </header>
 
-        {/* This is the main change: making sure the messages container has proper overflow settings */}
+        {/* Messages container with improved overflow handling */}
         <div className="flex-1 overflow-y-auto p-4 pb-24 max-h-[calc(100vh-140px)]">
           {currentConversation?.messages && currentConversation.messages.length > 0 ? (
             currentConversation.messages.map((message, index) => (
@@ -215,7 +215,9 @@ const ChatInterface: React.FC = () => {
               />
             ))
           ) : (
-            <WelcomeScreen onExampleClick={handleExampleClick} />
+            <div className="h-full overflow-auto"> {/* Wrapper for WelcomeScreen with overflow */}
+              <WelcomeScreen onExampleClick={handleExampleClick} />
+            </div>
           )}
           <div ref={messagesEndRef} />
         </div>

@@ -8,11 +8,11 @@ interface WelcomeScreenProps {
 
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onExampleClick }) => {
   return (
-    <div className="h-full flex flex-col items-center justify-center text-gray-700">
+    <div className="h-full flex flex-col items-center justify-start py-8 text-gray-700 overflow-auto">
       <div className="max-w-2xl w-full text-center p-8 flex flex-col items-center">
-        {/* Circle Avatar with Image */}
+        {/* Circle Avatar with Image - Modified for full visibility */}
         <div className="mb-8 relative">
-          <div className="w-48 h-48 rounded-full bg-white shadow-xl overflow-hidden">
+          <div className="w-48 h-48 rounded-full bg-white shadow-xl overflow-visible">
             <img 
               src="/lovable-uploads/5ab9c16a-161a-41a8-a371-f92626c9448f.png"
               alt="Asistente AI" 
